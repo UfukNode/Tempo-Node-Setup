@@ -79,6 +79,11 @@ mkdir -p $HOME/tempo/data
 tempo download
 ```
 
+- Örnek Çıktı:
+
+<img width="1120" height="120" alt="image" src="https://github.com/user-attachments/assets/17659e41-83a7-4c6d-b56f-cfc34bc6ca3e" />
+
+
 ---
 
 ## 8. Node Calistirma
