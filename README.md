@@ -30,11 +30,12 @@ tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 
 ## 5. Proje Dosyalarinin Kurulumu
 
-1. Tempo’yu kur:
+- Tempo’yu kur:
 ```bash
 curl -L https://tempo.xyz/install | bash
+source ~/.bashrc
 ```
-2. Surumu dogrula:
+- Surumu dogrula:
 ```bash
 tempo --version
 ```
