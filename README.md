@@ -48,6 +48,10 @@ source ~/.bashrc
 tempo --version
 ```
 
+- Örnek Çıktı:
+
+<img width="736" height="391" alt="image" src="https://github.com/user-attachments/assets/9d5fa9d4-4953-45fa-9f2e-60b86b7e9509" />
+
 ---
 
 ## 6. ED25519 Key Olustur
