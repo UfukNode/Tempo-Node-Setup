@@ -1,28 +1,33 @@
 ## Tempo Node Kurulum Rehberi
 
-Bu rehber, **Tempo** node’unu sifirdan kurmak isteyenler icin hazirlanmistir. Asagidaki adimlari sirasiyla uygulamaniz yeterlidir.
+Bu rehber, **Tempo** node'unu sııirdan kurmak isteyenler icin hazirlanmistir. Asagidaki adimlari sirasiyla uygulamaniz yeterlidir.
 
 ---
 
 ## 2. Sistem Gereksinimleri
 
-| Bileşen  | Gereksinim            |
+| Bilesen  | Gereksinim            |
 | -------- | --------------------- |
-| **CPU**  | En az 8 çekirdek      |
+| **CPU**  | En az 8 cekirdek      |
 | **RAM**  | Minimum 16 GB         |
-| **Disk** | En az 300 GB boş alan |
+| **Disk** | En az 300 GB bos alan |
 
 ---
 
-## 3. Sunucu Kirala:
+## 3. Sunucu Kirala
+
+1. Ubuntu 22.04 kurulu bir VPS/Cloud sunucu hazirla.
+2. Root veya sudo erisimi oldugunu dogrula.
 
 ---
 
-## 4. Sistem guncelleme ve gerekli paketler:
+## 4. Sistem guncelleme ve gerekli paketler
+
+1. Sistem guncelle ve gerekli paketleri kur:
 ```bash
 sudo apt update && sudo apt -y upgrade
 sudo apt install -y curl screen iptables build-essential git wget lz4 jq make gcc nano \
-automake autoconf tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev \
+automake autoconf htop nvme-cli pkg-config libssl-dev libleveldb-dev \
 tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 ```
 
@@ -30,42 +35,58 @@ tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 
 ## 5. Proje Dosyalarinin Kurulumu
 
-- Tempo’yu kur:
+1. Tempo'yu kur:
 ```bash
 curl -L https://tempo.xyz/install | bash
+```
+2. Ortam degiskenlerini yenile:
+```bash
 source ~/.bashrc
 ```
-- Surumu dogrula:
+3. Surumu dogrula:
 ```bash
 tempo --version
 ```
 
 ---
 
-## 6. Node Calistirma
+## 6. ED25519 Key Olustur
 
-- Imzalama anahtarini uret:
+1. Key dizinini olustur:
 ```bash
 mkdir -p $HOME/tempo/keys
+```
+2. Key'i olustur:
+```bash
 tempo consensus generate-private-key --output $HOME/tempo/keys/signing.key
 ```
-- Public key’i hesaplayip dogrula:
+3. Key'i dogrula:
 ```bash
 tempo consensus calculate-public-key --private-key $HOME/tempo/keys/signing.key
 ```
-- Veri dizinini hazirla:
+
+---
+
+## 7. Snapshot Indir
+
+1. Veri dizinini hazirla:
 ```bash
 mkdir -p $HOME/tempo/data
 ```
-- Guncel snapshot indir:
+2. Guncel snapshot indir:
 ```bash
 tempo download
 ```
-- Screen oturumu baslat:
+
+---
+
+## 8. Node Calistirma
+
+1. Screen oturumu baslat:
 ```bash
 screen -S tempo
 ```
-- Node’u calistir:
+2. Node'u calistir:
 ```bash
 tempo node --datadir $HOME/tempo/data \
   --port 30303 \
@@ -74,18 +95,23 @@ tempo node --datadir $HOME/tempo/data \
   --consensus.signing-key $HOME/tempo/keys/signing.key \
   --consensus.fee-recipient <validator_wallet_address>
 ```
-- Screen oturumundan ayril:
+
+---
+
+## 9. Gerekli Screen Komutlari
+
+1. Screen oturumundan ayril:
 ```bash
 Ctrl+a d
 ```
-- Screen oturumuna geri don:
+2. Screen oturumuna geri don:
 ```bash
 screen -r tempo
 ```
 
 ---
 
-## 7. Dashboard / Login / Peer ID
+## 10. Dashboard / Login / Peer ID
 
 1. Web panel bulunmaz; durum takibi loglar uzerinden yapilir.
 2. Sync ve blok yuksekligi icin explorer kontrolu:
@@ -93,7 +119,7 @@ screen -r tempo
 
 ---
 
-## 10. Ek Notlar / Tavsiyeler
+## 11. Ek Notlar / Tavsiyeler
 
 1. Validator set yonetimi Tempo ekibi tarafindan izinlidir; validator olmak icin `partners@tempo.xyz` ile iletisim gerekir.
 2. Validator aktif sete hemen girmeyebilir; genelde 48-72 saat surebilir.
