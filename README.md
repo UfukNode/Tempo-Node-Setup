@@ -60,6 +60,11 @@ mkdir -p $HOME/tempo/keys
 ```bash
 openssl rand -hex 32 > $HOME/tempo/keys/p2p.key
 ```
+3. Key Kontrol:
+```bash
+cat $HOME/tempo/keys/p2p.key
+wc -c $HOME/tempo/keys/p2p.key
+```
 
 ---
 
