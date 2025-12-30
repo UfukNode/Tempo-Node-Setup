@@ -21,7 +21,9 @@ Bu rehber, **Tempo** node’unu sifirdan kurmak isteyenler icin hazirlanmistir. 
 ## 4. Sistem guncelleme ve gerekli paketler:
 ```bash
 sudo apt update && sudo apt -y upgrade
-sudo apt -y install curl screen
+sudo apt install -y curl screen iptables build-essential git wget lz4 jq make gcc nano \
+automake autoconf tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev \
+tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 ```
 
 ---
