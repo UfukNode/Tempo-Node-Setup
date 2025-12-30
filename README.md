@@ -81,8 +81,7 @@ tempo download
 
 - Örnek Çıktı:
 
-<img width="1120" height="120" alt="image" src="https://github.com/user-attachments/assets/17659e41-83a7-4c6d-b56f-cfc34bc6ca3e" />
-
+<img width="1659" height="122" alt="image" src="https://github.com/user-attachments/assets/9ac0ad5c-9b33-45f5-bdb4-d151568a992c" />
 
 ---
 
