@@ -1,6 +1,6 @@
 ## Tempo Node Kurulum Rehberi
 
-Bu rehber, **Tempo** node'unu sııirdan kurmak isteyenler icin hazirlanmistir. Asagidaki adimlari sirasiyla uygulamaniz yeterlidir.
+Bu rehber, **Tempo** node'unu sifirdan kurmak isteyenler icin hazirlanmistir. Asagidaki adimlari sirasiyla uygulamaniz yeterlidir.
 
 ---
 
@@ -26,7 +26,7 @@ Bu rehber, **Tempo** node'unu sııirdan kurmak isteyenler icin hazirlanmistir. 
 1. Sistem guncelle ve gerekli paketleri kur:
 ```bash
 sudo apt update && sudo apt -y upgrade
-sudo apt install -y curl screen iptables build-essential git wget lz4 jq make gcc nano \
+sudo apt install -y curl screen iptables build-essential git wget lz4 jq make gcc nano openssl \
 automake autoconf htop nvme-cli pkg-config libssl-dev libleveldb-dev \
 tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 ```
@@ -48,13 +48,9 @@ source ~/.bashrc
 tempo --version
 ```
 
-- Örnek Çıktı:
-
-<img width="736" height="391" alt="image" src="https://github.com/user-attachments/assets/9d5fa9d4-4953-45fa-9f2e-60b86b7e9509" />
-
 ---
 
-## 6. ED25519 Key Olustur
+## 6. P2P Key Olustur
 
 1. Key dizinini olustur:
 ```bash
@@ -62,11 +58,7 @@ mkdir -p $HOME/tempo/keys
 ```
 2. Key'i olustur:
 ```bash
-tempo consensus generate-private-key --output $HOME/tempo/keys/signing.key
-```
-3. Key'i dogrula:
-```bash
-tempo consensus calculate-public-key --private-key $HOME/tempo/keys/signing.key
+openssl rand -hex 32 > $HOME/tempo/keys/p2p.key
 ```
 
 ---
@@ -96,7 +88,7 @@ tempo node --datadir $HOME/tempo/data \
   --port 30303 \
   --discovery.addr 0.0.0.0 \
   --discovery.port 30303 \
-  --consensus.signing-key $HOME/tempo/keys/signing.key \
+  --p2p-secret-key $HOME/tempo/keys/p2p.key \
   --consensus.fee-recipient <validator_wallet_address>
 ```
 
