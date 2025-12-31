@@ -49,6 +49,9 @@ source ~/.bashrc
 tempo --version
 ```
 
+Örnek Çıktı:
+<img width="422" height="88" alt="image" src="https://github.com/user-attachments/assets/e003e6d6-7eee-4e9e-82ff-57f4bfbac5dc" />
+
 ---
 
 ## 4. P2P ve Consensus Key Oluştur
@@ -67,6 +70,9 @@ grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/p2p.key && echo OK
 grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/consensus.key && echo OK
 ```
 
+Örnek Çıktı:
+<img width="619" height="60" alt="image" src="https://github.com/user-attachments/assets/4e35519a-359d-4c1d-ae04-d534910b6d9e" />
+
 ---
 
 ## 5. Snapshot İndir
@@ -83,6 +89,9 @@ mkdir -p $HOME/tempo/data
 tempo download
 ```
 
+Örnek Çıktı:
+<img width="1659" height="122" alt="Ekran görüntüsü 2025-12-31 011738" src="https://github.com/user-attachments/assets/16871381-500c-4903-bf6a-67e608910595" />
+
 ---
 
 ## 6. Node Çalıştırma
@@ -97,6 +106,9 @@ tempo node --datadir $HOME/tempo/data \
   --consensus.fee-recipient <cuzdan_adresi>
 ```
 Not: `<cuzdan_adresi>` kısmına kendi cüzdan adresini gir.
+
+Örnek Çıktı:
+<img width="604" height="117" alt="Ekran görüntüsü 2025-12-31 011934" src="https://github.com/user-attachments/assets/ce57fa05-0d58-4226-a0b4-89715b912506" />
 
 ---
 
