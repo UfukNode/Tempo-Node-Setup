@@ -137,15 +137,16 @@ tempo download
 ## 7. Node Çalıştırma
 
 ```bash
-tempo node --datadir $HOME/tempo/data \
+tempo node --datadir /root/tempo/data \
+  --chain testnet \
   --port 30303 \
   --discovery.addr 0.0.0.0 \
   --discovery.port 30303 \
-  --p2p-secret-key $HOME/tempo/keys/p2p.key \
-  --consensus.signing-key $HOME/tempo/keys/consensus.key \
+  --consensus.signing-key /root/tempo/keys/signing.key \
   --consensus.fee-recipient <cuzdan_adresi>
 ```
-Not: `<cuzdan_adresi>` kısmına kendi cüzdan adresini gir.
+
+- Not: `<cuzdan_adresi>` kısmına kendi cüzdan adresini gir.
 
 Örnek Komut Çıktısı:
 
