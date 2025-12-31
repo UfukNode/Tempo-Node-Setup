@@ -27,6 +27,35 @@ Bu rehber, **Tempo** node'unu sıfırdan kurmak isteyenler için hazırlanmışt
 
 ---
 
+## DNS Ayarları (Opsiyonel):
+
+⚠️ Eğer sunucuyu severicadan kiraladaysan aşağıdaki adımları yapmadan kuruluma geçme.
+
+```bash
+sudo mkdir -p /etc/cloud/cloud.cfg.d
+echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+```
+
+```bash
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+
+`nameservers` bölümünü şu şekilde ayarla:
+```
+nameservers:
+  addresses:
+    - 1.1.1.1
+    - 8.8.8.8
+```
+- "CTRL + X" tuşlayıp enter yaparak çık.
+
+```bash
+sudo netplan apply
+sudo systemctl restart systemd-resolved
+```
+
+---
+
 ## 2. Sistem güncelleme ve gerekli paketler
 
 ```bash
