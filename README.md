@@ -40,7 +40,7 @@ echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
-`nameservers` bölümünü şu şekilde ayarla:
+`nameservers` bölümünü aşağıdaki gibi değiştirerek ayarla:
 ```
 nameservers:
   addresses:
