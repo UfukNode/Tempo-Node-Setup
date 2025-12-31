@@ -40,7 +40,7 @@ echo "network: {config: disabled}" | sudo tee /etc/cloud/cloud.cfg.d/99-disable-
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
-`nameservers` bölümünü aşağıdaki gibi değiştirerek ayarla:
+- `nameservers` bölümünü aşağıdaki gibi değiştirerek ayarla:
 ```
 nameservers:
   addresses:
@@ -48,6 +48,8 @@ nameservers:
     - 8.8.8.8
 ```
 - "CTRL + X" tuşlayıp enter yaparak çık.
+
+<img width="293" height="135" alt="image" src="https://github.com/user-attachments/assets/af2ffeb7-f9b3-4f30-a859-e4f112c0cf5b" />
 
 ```bash
 sudo netplan apply
