@@ -1,29 +1,34 @@
-## Tempo Node Kurulum Rehberi
+# Tempo Node Kurulum Rehberi
 
-Bu rehber, **Tempo** node'unu sifirdan kurmak isteyenler icin hazirlanmistir. Asagidaki adimlari sirasiyla uygulamaniz yeterlidir.
+Bu rehber, **Tempo** node'unu sıfırdan kurmak isteyenler için hazırlanmıştır. Aşağıdaki adımları sırasıyla uygulamanız yeterlidir.
 
 ---
 
-## 2. Sistem Gereksinimleri
+## Sistem Gereksinimleri
 
-| Bilesen  | Gereksinim            |
+| Bileşen  | Gereksinim            |
 | -------- | --------------------- |
-| **CPU**  | En az 8 cekirdek      |
+| **CPU**  | En az 8 çekirdek      |
 | **RAM**  | Minimum 16 GB         |
-| **Disk** | En az 300 GB bos alan |
+| **Disk** | En az 300 GB boş alan |
 
 ---
 
-## 3. Sunucu Kirala
+## 1. Sunucu Kiralama (Serverica)
 
-1. Ubuntu 22.04 kurulu bir VPS/Cloud sunucu hazirla.
-2. Root veya sudo erisimi oldugunu dogrula.
+- Aşağıdaki bağlantıya giderek kayıt ol:
+  https://clients.servarica.com/store/bf-2025-kvm-slim-slice
+- 14 dolarlık paketi seç.
+- VM Template kısmında Ubuntu 22 seçili olsun.
+- Hostname alanına istediğin bir isim yaz.
+- Ödemeni kripto ile yaparak sunucunu kirala.
+- Sunucun aktif olduktan sonra, kayıt olduğun mail adresine bir bilgilendirme maili gelecektir. Mailde verilen IP üzerinden sunucuya giriş yapabilirsin.
+- Şifreni öğrenmek için Serverica hesabına giriş yap ve "Ürünlerim" kısmından sunucunu seç.
 
 ---
 
-## 4. Sistem guncelleme ve gerekli paketler
+## 2. Sistem güncelleme ve gerekli paketler
 
-1. Sistem guncelle ve gerekli paketleri kur:
 ```bash
 sudo apt update && sudo apt -y upgrade
 sudo apt install -y curl screen iptables build-essential git wget lz4 jq make gcc nano openssl \
@@ -33,98 +38,91 @@ tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 
 ---
 
-## 5. Proje Dosyalarinin Kurulumu
+## 3. Proje Dosyalarının Kurulumu
 
-1. Tempo'yu kur:
 ```bash
 curl -L https://tempo.xyz/install | bash
-```
-2. Ortam degiskenlerini yenile:
-```bash
 source ~/.bashrc
 ```
-3. Surumu dogrula:
+
 ```bash
 tempo --version
 ```
 
 ---
 
-## 6. P2P Key Olustur
+## 4. P2P ve Consensus Key Oluştur
 
-1. Key dizinini olustur:
 ```bash
 mkdir -p $HOME/tempo/keys
 ```
-2. Key'i olustur:
+
 ```bash
-openssl rand -hex 32 > $HOME/tempo/keys/p2p.key
+openssl rand -hex 32 | tr -d '\n' > $HOME/tempo/keys/p2p.key
+openssl rand -hex 32 | tr -d '\n' > $HOME/tempo/keys/consensus.key
 ```
-3. Key Kontrol:
+
 ```bash
-cat $HOME/tempo/keys/p2p.key
-wc -c $HOME/tempo/keys/p2p.key
+grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/p2p.key && echo OK
+grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/consensus.key && echo OK
 ```
 
 ---
 
-## 7. Snapshot Indir
+## 5. Snapshot İndir
 
-1. Veri dizinini hazirla:
+```bash
+screen -S tempo
+```
+
 ```bash
 mkdir -p $HOME/tempo/data
 ```
-2. Guncel snapshot indir:
+
 ```bash
 tempo download
 ```
 
-- Örnek Çıktı:
-
-<img width="1659" height="122" alt="image" src="https://github.com/user-attachments/assets/9ac0ad5c-9b33-45f5-bdb4-d151568a992c" />
-
 ---
 
-## 8. Node Calistirma
+## 6. Node Çalıştırma
 
-1. Screen oturumu baslat:
-```bash
-screen -S tempo
-```
-2. Node'u calistir:
 ```bash
 tempo node --datadir $HOME/tempo/data \
   --port 30303 \
   --discovery.addr 0.0.0.0 \
   --discovery.port 30303 \
   --p2p-secret-key $HOME/tempo/keys/p2p.key \
-  --consensus.fee-recipient <validator_wallet_address>
+  --consensus.signing-key $HOME/tempo/keys/consensus.key \
+  --consensus.fee-recipient <cuzdan_adresi>
 ```
+Not: `<cuzdan_adresi>` kısmına kendi cüzdan adresini gir.
 
 ---
 
-## 9. Gerekli Screen Komutlari
+## 7. Gerekli Screen Komutları
 
-1. Screen oturumundan ayril:
+- Screen oturumunu kapatmadan çıkmak için:
 ```bash
 Ctrl+a d
 ```
-2. Screen oturumuna geri don:
+
+- Oluşturduğunuz screene tekrar dönek için:
 ```bash
 screen -r tempo
 ```
 
 ---
 
-## 10. Dashboard / Login / Peer ID
+## 8. Dashboard / Login / Peer ID
 
-1. Web panel bulunmaz; durum takibi loglar uzerinden yapilir.
-2. Sync ve blok yuksekligi icin explorer kontrolu:
-`https://explorer.tempo.xyz/`
+- Web panel bulunmaz; durum takibi loglar üzerinden yapılır.
+- Sync ve blok yüksekliği için explorer kontrolü:
+  `https://explorer.tempo.xyz/`
 
 ---
 
-## 11. Ek Notlar / Tavsiyeler
+## ✅ Ek Notlar / Tavsiyeler
 
-1. Validator set yonetimi Tempo ekibi tarafindan izinlidir; validator olmak icin `partners@tempo.xyz` ile iletisim gerekir.
-2. Validator aktif sete hemen girmeyebilir; genelde 48-72 saat surebilir.
+- Validator set yönetimi Tempo ekibi tarafından izinlidir; validator olmak için `partners@tempo.xyz` ile iletişim gerekir.
+- Validator aktif sete hemen girmeyebilir; genelde 48-72 saat sürebilir.
