@@ -66,6 +66,8 @@ openssl rand -hex 32 | tr -d '\n' > $HOME/tempo/keys/p2p.key
 openssl rand -hex 32 | tr -d '\n' > $HOME/tempo/keys/consensus.key
 ```
 
+- Aşağıdaki komutu girdikten sonra örnek çıktıdaki gibi "OK" yazılarının çıktığından emin olun.
+
 ```bash
 grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/p2p.key && echo OK
 grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/consensus.key && echo OK
