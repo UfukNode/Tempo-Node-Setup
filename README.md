@@ -112,9 +112,13 @@ tempo node --datadir $HOME/tempo/data \
 ```
 Not: `<cuzdan_adresi>` kısmına kendi cüzdan adresini gir.
 
-Örnek Çıktı:
+Örnek Komut Çıktısı:
 
 <img width="604" height="117" alt="Ekran görüntüsü 2025-12-31 011934" src="https://github.com/user-attachments/assets/ce57fa05-0d58-4226-a0b4-89715b912506" />
+
+Örnek Log Çıktısı:
+
+<img width="686" height="154" alt="image" src="https://github.com/user-attachments/assets/fdd25c88-be5c-41c7-8bae-a63676d5f3fb" />
 
 ---
 
