@@ -122,10 +122,7 @@ screen -S tempo
 
 ```bash
 mkdir -p $HOME/tempo/data
-```
-
-```bash
-tempo download
+tempo download --datadir /root/tempo/data
 ```
 
 Örnek Çıktı:
