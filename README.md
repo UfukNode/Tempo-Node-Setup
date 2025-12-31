@@ -69,48 +69,52 @@ tar clang bsdmainutils ncdu unzip ca-certificates net-tools iputils-ping
 
 ---
 
-## 3. Proje Dosyalarının Kurulumu
+## 3. Rust Kurulum:
 
 ```bash
-curl -L https://tempo.xyz/install | bash
-source ~/.bashrc
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 ```
 
+## 4. Tempo Kurulum:
+
 ```bash
-tempo --version
+cargo install --git https://github.com/tempoxyz/tempo.git tempo --root /usr/local --force
 ```
 
 Örnek Çıktı:
 
-<img width="422" height="88" alt="image" src="https://github.com/user-attachments/assets/e003e6d6-7eee-4e9e-82ff-57f4bfbac5dc" />
-
 ---
 
-## 4. P2P ve Consensus Key Oluştur
+## 5. Key Oluştur:
 
 ```bash
 mkdir -p $HOME/tempo/keys
 ```
 
 ```bash
-openssl rand -hex 32 | tr -d '\n' > $HOME/tempo/keys/p2p.key
-openssl rand -hex 32 | tr -d '\n' > $HOME/tempo/keys/consensus.key
+export PATH=/usr/local/bin:$PATH
+hash -r
+which tempo
+```
+
+```bash
+tempo consensus generate-private-key --output $HOME/tempo/keys/signing.key
 ```
 
 - Aşağıdaki komutu girdikten sonra örnek çıktıdaki gibi "OK" yazılarının çıktığından emin olun.
 
 ```bash
-grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/p2p.key && echo OK
-grep -Eq '^[0-9a-f]{64}$' $HOME/tempo/keys/consensus.key && echo OK
+tempo consensus calculate-public-key --private-key $HOME/tempo/keys/signing.key
 ```
 
 Örnek Çıktı:
 
-<img width="619" height="60" alt="image" src="https://github.com/user-attachments/assets/4e35519a-359d-4c1d-ae04-d534910b6d9e" />
+<img width="761" height="53" alt="Ekran görüntüsü 2025-12-31 180305" src="https://github.com/user-attachments/assets/89ade584-1037-49fa-bb9d-8ed9532bf11c" />
 
 ---
 
-## 5. Snapshot İndir
+## 6. Snapshot İndir
 
 ```bash
 screen -S tempo
@@ -130,7 +134,7 @@ tempo download
 
 ---
 
-## 6. Node Çalıştırma
+## 7. Node Çalıştırma
 
 ```bash
 tempo node --datadir $HOME/tempo/data \
@@ -153,7 +157,7 @@ Not: `<cuzdan_adresi>` kısmına kendi cüzdan adresini gir.
 
 ---
 
-## 7. Gerekli Screen Komutları
+## 8. Gerekli Screen Komutları
 
 - Screen oturumunu kapatmadan çıkmak için:
 ```bash
@@ -167,7 +171,7 @@ screen -r tempo
 
 ---
 
-## 8. Dashboard / Login / Peer ID
+## 9. Dashboard / Login / Peer ID
 
 - Web panel bulunmaz; durum takibi loglar üzerinden yapılır.
 - Sync ve blok yüksekliği için explorer kontrolü:
