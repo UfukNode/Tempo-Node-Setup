@@ -19,7 +19,7 @@ Bu rehber, **Tempo** node'unu sıfırdan kurmak isteyenler için hazırlanmışt
 - Aşağıdaki bağlantıya giderek kayıt ol:
   https://clients.servarica.com/store/bf-2025-kvm-slim-slice
 - 14 dolarlık paketi seç.
-- VM Template kısmında Ubuntu 22 seçili olsun.
+- VM Template kısmında Ubuntu 24 seçili olsun.
 - Hostname alanına istediğin bir isim yaz.
 - Ödemeni kripto ile yaparak sunucunu kirala.
 - Sunucun aktif olduktan sonra, kayıt olduğun mail adresine bir bilgilendirme maili gelecektir. Mailde verilen IP üzerinden sunucuya giriş yapabilirsin.
